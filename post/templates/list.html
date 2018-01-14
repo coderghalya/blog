@@ -13,6 +13,9 @@
   <div class="col-sm-6 col-md-4">
 		<div class="card">
 		  <div class="card-body">
+		  	{% if wow.photo %}deded
+                  <img class= "card-img-top" src="{{wow.photo.url}}" alt="Ariticle image">
+              {% endif %}
 		    <h5 class="card-title">{{wow.title}}</h5>
 		    <p class="card-text">content: {{wow.content}}</p>
 		    <a href="{% url 'detail' post_id=wow.id %}" class="btn btn-outline-dark">Info</a>

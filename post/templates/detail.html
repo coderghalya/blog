@@ -8,6 +8,9 @@
 
 {% block content %}
 
+		{% if title.photo %}
+                  <img class= "card-img-top" src="{{title.photo.url}}" alt="Ariticle image">
+              {% endif %}
 
 	{{title.title}}
 

@@ -28,7 +28,7 @@ def post_delete(request,post_id):
 	return redirect("list")
 
 def post_create(request):
-	form =PostForm(request.POST or None)
+	form =PostForm(request.POST or None, request.FILES or None)
 	if form.is_valid():
 
 		form.save()
@@ -50,7 +50,7 @@ def post_update(request,post_id):
 
 	if request.method == "POST":
 
-		form = PostForm(request.POST or None, instance = item)
+		form = PostForm(request.POST or None, request.FILES or None, instance = item)
 
 		
 		if form.is_valid():

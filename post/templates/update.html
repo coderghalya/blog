@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-<form action= "{% url 'update' post_id=item.id %}" method="POST">
+<form action= "{% url 'update' post_id=item.id %}" method="POST" enctype="multipart/form-data">
 	{% csrf_token %}
 	{{form|crispy}}
 
