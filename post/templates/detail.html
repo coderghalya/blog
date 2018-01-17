@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load crispy_forms_tags %}
 {% block header %}
 
 	Detail
@@ -20,5 +20,42 @@
 	
 	{{title.updated}}
 
+	<button class="btn" onclick="like_button()">
+		<div id="like-count"> {{count}}</div>
+		<i id="like-heart" class="fa fa-heart {% if liked %}text-danger{% endif %}" aria-hidden="true"></i>
+	</button>
+	<p class="card-text">
+		{% for comment in comments %}
+			<div class="alert alert-primary">{{comment.user}}: {{comment.blob|linebreaks}}</div>
+		{% endfor %}
+		</p>
+		<p class="card-text">
+			<form action="{% url 'detail' post_id=title.id %}" method="POST">
+				{% csrf_token %}
+				{{comment_form|crispy}}
+				<input type="submit" class="btn btn-primary" value="Submit">
+			</form>	
+		<p>	
+
+<script>
+	function like_button(){
+		$.ajax({
+			type:"GET",
+			url:"{% url 'likes' post_id=title.id %}",
+			error:function(){
+				alert("something went wrong")
+			}, 
+
+			success:function(data){
+				$("#like-count").text(data.count);
+				if(data.action==="like"){
+					$("#like-heart").addClass("text-danger");
+				}else{
+					$("#like-heart").removeClass("text-danger");	
+				}
+			}, 
+		});
+	}
+</script>	
 
 {% endblock content %}
