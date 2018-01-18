@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+	{% for place in response.results %}
+	{{place.formatted_address}}
+	<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">{{place.name}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{place.formatted_address}}</h6>
+    <p class="card-text">Place ID: {{place.place_id}}</p>
+    <p class="card-text">Rating: {{place.rating}}</p>
+    <form action="{% url 'place_detail' %}" method="GET">
+    	<input type="hidden" name="place_id" value="{{place.place_id}}">
+    	<input type="submit" value="More Info" value="btn btn-outline-primary">
+    </form>
+  </div>
+</div>
+	{% endfor %}
+	<br>
+	{% if response.next_page_token %}
+	<form action="{%url 'place_search' %}" method="GET">
+		<input type="hidden" name="next_page" value="{{response.next_page_token}}">	
+		<input type="submit" value="Next Page" class="btn btn-primary btn-lg btn-block">
+	</form>	
+	{% endif %}
+	<br>	
+{% endblock content %}	
